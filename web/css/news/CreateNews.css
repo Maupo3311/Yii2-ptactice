@@ -1,0 +1,12 @@
+#textInput {
+    height: 200px;
+    font-size: 20px;
+    resize: none;
+}
+#fileInput {
+    display: none;
+}
+#submitInput{
+    position: absolute;
+    right: 16px;
+}

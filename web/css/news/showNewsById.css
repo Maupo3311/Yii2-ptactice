@@ -1,0 +1,48 @@
+@media screen and (max-width: 600px) {
+    .optionsButton{
+        width: 100%;
+    }
+}
+
+#text{
+    font-size: 25px;
+    padding: 10px;
+    resize: none;
+}
+.newsImageBlock{
+    overflow: hidden;
+    padding: 0;
+}
+.newsImageOne{
+    margin: 0 auto;
+}
+.commentBlock{
+    border: 1px solid black;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.commentSender{
+    background: black;
+    color: white;
+    font-size: 15px;
+    padding: 5px;
+}
+.commentText{
+    background: white;
+    padding: 10px;
+    font-size: 15px;
+}
+#newCommentText{
+    height: 100px;
+    resize: none;
+}
+
+#options{
+    text-align: right;
+    margin-bottom: 10px;
+}
+.optionsButton{
+    margin-left: 10px;
+    margin-right: 3px;
+}
