@@ -1,4 +1,17 @@
 $(document).ready(function(){
+
+    $('#showSearch').click(function(){
+        if($(this).attr('data-status') == 'close'){
+            $('#searchForm').css('display', 'block');
+            $(this).attr('data-status', 'open');
+            $(this).children('p').html('Скрыть поиск');
+        } else {
+            $('#searchForm').css('display', 'none');
+            $(this).attr('data-status', 'close');
+            $(this).children('p').html('Найти новость');
+        }
+    })
+
     var documentWidth =  document.documentElement.clientWidth;
 	processingCarousel();
 	setInterval( function(){
@@ -15,22 +28,22 @@ function processingCarousel(){
 	if(documentWidth < 500){
         $('.newsImage').css('height', '150px');
         $('.optionsButton').wrap('<p></p>');
-        pricessingText(100);
+        processingText(100);
 	} else if(documentWidth < 800){
         $('.newsImage').css('height', '250px');
-        pricessingText(160);
+        processingText(160);
         if( $(".optionsButton").parent('p').length != 0 ){
             $(".optionsButton").unwrap();
         }
 
     } else if(documentWidth < 1400){
         $('.newsImage').css('height', '300px');
-        pricessingText(240);
+        processingText(240);
         if( $(".optionsButton").parent('p').length != 0 ){
             $(".optionsButton").unwrap();
         }
     } else {
-        pricessingText(350);
+        processingText(350);
         $('.newsImage').css('height', '400px');
         if( $(".optionsButton").parent('p').length != 0 ){
             $(".optionsButton").unwrap();
@@ -41,39 +54,39 @@ function processingCarousel(){
 
 }
 
-function pricessingText(permissibleLength){
-
+function processingText(permissibleLength){
     var newsTexts = $('.newsText');
 
     for(let count = 0; count < newsTexts.length; ++count){
         var textBlock = newsTexts[count];
 
-        if(textBlock.getAttribute('data-status') == 'open') return;
+        if(textBlock.getAttribute('data-status') == 'open') continue;
 
         textBlock.id = 'processing';
         if( $('#processing').children('.hiddenText').length != 0 ){
-            console.log($('#processing').children('.hiddenText'));
             showText( $('#processing').children('.hiddenText')[0] );
         }
+        textBlock.id = '';
 
         var text = textBlock.innerHTML;
 
         if(text.length > permissibleLength){
 
-            for(permissibleLength ; text[permissibleLength] != ' '; ++permissibleLength);
+            for(var length = permissibleLength; length < text.length; ++length){
+                if(text[length] == ' ' || text[length] == ',' || text[length] == '.') break;
+            }
 
-            var displayText = text.slice(0, permissibleLength);
-            var hiddenText = text.slice(permissibleLength);
-            textBlock.innerHTML = displayText + ' <a onclick="showText(this, \'open\')" data-hiddenText="' + hiddenText + '" href="#" class="hiddenText">показать полностью...</a>';
+            var displayText = text.slice(0, length);
+            var hiddenText = text.slice(length);
+            textBlock.innerHTML = displayText + ' <span onclick="showText(this, \'open\')" data-hiddenText="' + hiddenText + '" class="hiddenText">показать полностью...</span>';
         }
     }
 }
 
 function showText(element, status = null){
     var textBlock = element.parentNode;
-    console.log(textBlock);
     if(status != null) textBlock.setAttribute('data-status', status);
-    var text = element.getAttribute('data-hiddenText');
+    var hiddenText = element.getAttribute('data-hiddenText');
     element.remove();
-    textBlock.innerHTML += text;
+    textBlock.innerHTML += hiddenText;
 }

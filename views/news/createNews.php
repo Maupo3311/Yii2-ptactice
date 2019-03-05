@@ -2,13 +2,14 @@
     use yii\widgets\ActiveForm;
     use yii\helpers\Html;
 
+    $this->title = 'Новая новость';
     $this->registerCssFile('css/news/createNews.css');
     $this->registerJsFile('web/js/news/createNews.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 <h2>Добавить новость</h2>
 <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6 offset-md-3 ">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
         <?php
             $form = ActiveForm::begin();
             echo $form->field($createNewsForm, 'text')->textarea(['id' => 'textInput']);

@@ -155,6 +155,49 @@ function processingSize(image, imageBlock = null){
 }
 
 
+function MyAlert(action, id = null){
+
+	var alertDiv = document.createElement('div');
+	alertDiv.id = 'alertDiv';
+	document.body.appendChild(alertDiv);
+
+	if(action == 'deleteNews'){
+		alertDiv.innerHTML = 'Вы уверенны что хотите удалить новость?';
+	} else if(action == 'deleteNewsFiles') {
+        alertDiv.innerHTML = 'Вы уверенны что хотите очистить фаилы?';
+    }
+
+	var buttonsBlock = document.createElement('p');
+	alertDiv.appendChild(buttonsBlock);
+
+	var alertTrue = document.createElement('button');
+	alertTrue.innerHTML = 'Да';
+	alertTrue.id = 'alertTrue';
+	alertTrue.className = 'alertButton';
+	alertTrue.setAttribute('onclick', 'alertTrue("' + action + '", "' + id + '")');
+    buttonsBlock.appendChild(alertTrue);
+
+	var alertFalse = document.createElement('button');
+	alertFalse.innerHTML = 'Нет';
+	alertFalse.id = 'alertFalse';
+    alertFalse.className = 'alertButton';
+    alertFalse.setAttribute('onclick', 'alertFalse(this)');
+    buttonsBlock.appendChild(alertFalse);
+}
+
+function alertTrue(action, id = null){
+	if(action == 'deleteNews') {
+        window.location.href = '?r=news/delete-news&id=' + id;
+    } else if(action == 'deleteNewsFiles'){
+        window.location.href = '?r=news/update-news&deleteFiles=true&id=' + id;
+	}
+}
+
+function alertFalse(element){
+	element.parentNode.parentNode.remove();
+}
+
+
 
 
 

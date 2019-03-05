@@ -28,6 +28,9 @@ class CreateNewsForm extends Model
     }
 
     public function fillingTheModel($model){
+        $this->text = str_replace('<', '&lt;', $this->text);
+        $this->text = str_replace('>', '&gt;', $this->text);
+
         $model->text = $this->text;
         $model->id_of_the_sender = Yii::$app->user->getId();
     }

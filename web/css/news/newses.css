@@ -28,6 +28,9 @@
     margin: auto;
     display: block;
 }
+.newsSender:hover{
+    background: #2f2f2f;
+}
 .newsSender{
     padding: 10px;
     border-radius: 5px 5px 0 0;
@@ -52,4 +55,6 @@
 }
 .hiddenText{
     font-size: 15px;
+    color: #3655c3;
+    cursor: pointer;
 }

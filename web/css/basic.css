@@ -6,6 +6,10 @@
     color: #232323;
     text-decoration: none;
 }
+.menuButton:focus{
+    color: #9d9d9d;
+    text-decoration: none;
+}
 .menuButton p:hover{
     cursor: pointer;
     color: white;
@@ -20,4 +24,16 @@
     background: black;
     border: 3px solid #eaeaea;
     border-radius: 10px;
+}
+#searchForm{
+    margin: 10px 0;
+    display: none;
+}
+#searchText{
+    border-radius: 10px 0 0 10px;
+    outline: none;
+}
+#searchButton{
+    border-radius: 0 10px 10px 0;
+    outline: none;
 }

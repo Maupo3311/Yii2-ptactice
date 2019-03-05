@@ -12,11 +12,16 @@ use Yii;
 
 class NewsController extends Controller
 {
-    public function actionIndex(){
+    public function actionIndex($condition = null){
 
+        $user = Yii::$app->user;
         $newsModel = new News();
 
-        $fullNewses = array_reverse( $newsModel->find()->with('sender')->all() );
+        if($condition == 'myNewses'){
+            $fullNewses = array_reverse( $newsModel->find()->where(['id_of_the_sender' => $user->getId()])->with('sender')->all() );
+        } else {
+            $fullNewses = array_reverse( $newsModel->find()->with('sender')->all() );
+        }
 
         return $this->render('index', compact('fullNewses', 'newsModel'));
     }
@@ -67,4 +72,70 @@ class NewsController extends Controller
 
         return $this->render('showNewsById', compact('commentForm', 'newsForm', 'news', 'sender', 'user', 'access', 'comments'));
     }
+
+    public function actionDeleteNews($id){
+
+        $user = Yii::$app->user;
+        $news = News::findOne($id);
+
+        $path = 'data/newses/' . $id;
+        if( file_exists($path) ){
+
+            $files = array_slice(scandir($path), 2);
+            foreach($files as $file){
+                unlink($path . '/' . $file);
+            }
+
+            rmdir($path);
+        }
+
+        if($user->identity->status != 'admin' && $user->getId() != $news->id_of_the_sender){
+            return 'Вы не можете удалить эту новость!';
+        }
+
+
+
+        $news->delete();
+
+        $this->redirect('?r=news/index');
+    }
+
+    public function actionUpdateNews($id, $deleteFiles = false){
+        $user = Yii::$app->user;
+        $createNewsForm = new CreateNewsForm();
+        $news = News::findOne($id);
+
+        if($user->identity->status != 'admin' && $user->getId() != $news->id_of_the_sender){
+            return 'Вы не можете редактировать эту новость!';
+        }
+
+        $path = 'data/newses/' . $id;
+        $availabilityOfFiles = ( file_exists($path) ) ? true : false;
+        $numberOfFiles = ($availabilityOfFiles) ? count( scandir($path) ) - 2 : 0;
+
+        if($deleteFiles){
+            if( $availabilityOfFiles ){
+
+                $files = array_slice(scandir($path), 2);
+                foreach($files as $file){
+                    unlink($path . '/' . $file);
+                }
+
+                rmdir($path);
+                $availabilityOfFiles = false;
+            }
+        }
+
+        if( $createNewsForm->load(Yii::$app->request->post()) && $createNewsForm->validate() ){
+            $news->text = $createNewsForm->text;
+            $news->save();
+            $createNewsForm->saveFile($news->id_news);
+            $this->redirect('?r=news/index');
+        }
+
+        $createNewsForm->text = $news->text;
+
+        return $this->render('updateNews', compact('news', 'createNewsForm', 'availabilityOfFiles', 'numberOfFiles'));
+    }
+
 }

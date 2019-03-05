@@ -49,9 +49,8 @@
         if($access){
             echo '<div id="options">';
 
-            echo '<a href="#"><span class="optionsButton">Редактировать</span></a>';
-            echo '<a href="#"><span class="optionsButton">Очистить коментарии</span></a>';
-            echo '<a href="#"><span class="optionsButton">Удалить запись</span></a>';
+            echo '<a href="?r=news/update-news&id=' . $news->id_news .'"><span class="optionsButton">Редактировать</span></a>';
+            echo '<a href="#"><span class="optionsButton" onclick="MyAlert(\'deleteNews\', ' . $news->id_news . ')">Удалить запись</span></a>';
 
             echo '</div>';
         }

@@ -1,6 +1,33 @@
+@media screen and (min-width: 1024px) and (max-width: 2000px) {
+    #textInput {
+        height: 450px;
+        font-size: 20px;
+        resize: none;
+    }
+}
+@media screen and (min-width: 800px) and (max-width: 1024px) {
+    #textInput {
+        height: 350px;
+        font-size: 20px;
+        resize: none;
+    }
+}
+@media screen and (min-width: 500px) and (max-width: 800px) {
+    #textInput {
+        height: 300px;
+        font-size: 17px;
+        resize: none;
+    }
+}
+@media screen and (max-width: 500px) {
+    #textInput {
+        height: 200px;
+        font-size: 15px;
+        resize: none;
+    }
+}
+
 #textInput {
-    height: 200px;
-    font-size: 20px;
     resize: none;
 }
 #fileInput {

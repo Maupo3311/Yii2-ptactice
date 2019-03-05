@@ -32,6 +32,11 @@ class RegistrationForm extends Model
 
     public function fillingTheModel($model)
     {
+        $this->name = str_replace('<', '&lt;', $this->name);
+        $this->name = str_replace('>', '&gt;', $this->name);
+        $this->surname = str_replace('<', '&lt;', $this->surname);
+        $this->surname = str_replace('>', '&gt;', $this->surname);
+
         $model->login = $this->login;
         $model->password = md5($this->password);
         $model->name = $this->name;

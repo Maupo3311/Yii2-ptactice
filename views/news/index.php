@@ -14,9 +14,15 @@
 </div>
 <div class="row">
     <div class="col-md-3" id="leftMenu">
-        <a class="menuButton" href="#"><p>Все новости</p></a>
+        <a data-status="close" id="showSearch" class="menuButton" href="#"><p>Найти новость</p></a>
+        <form id="searchForm" method="GET">
+            <input id="searchText" class="col-md-8" type="text" name="search" placeholder="Найти...">
+            <input id="searchButton" class="col-md-4" type="submit" value="Найти">
+        </form>
+        <a class="menuButton" href="?r=news/index"><p>Все новости</p></a>
         <?php
             if( !$user->isGuest ){
+                echo '<a class="menuButton" href="?r=news/index&condition=myNewses"><p>Мои новости</p></a>';
                 echo '<a class="menuButton" href="?r=news/create-news"><p>Добавить новость</p></a>';
             }
         ?>
@@ -27,8 +33,8 @@
         foreach($fullNewses as $news){
             $carousel = [];
             echo '<div class="newsBlock">';
-                echo '<a class="newsHref" href="?r=news/show-news-by-id&id=' . $news->id_news . '"><div class="newsSender">' . $news->sender->name . ' ' . $news->sender->surname . '</div>';
-                echo '<div class="newsText">' . $news['text'] . '</div></a>';
+                echo '<a class="newsHref" href="?r=news/show-news-by-id&id=' . $news->id_news . '"><div class="newsSender">' . $news->sender->name . ' ' . $news->sender->surname . '</div></a>';
+                echo '<div class="newsText">' . $news['text'] . '</div>';
                 $path = 'data/newses/' . $news->id_news;
                 if(file_exists($path)){
                     $content = scandir($path);

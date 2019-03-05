@@ -1,16 +1,29 @@
 @media screen and (min-width: 1024px) and (max-width: 2000px) {
-    #zoomImageBlock{
-
+    #alertDiv{
+        width: 33.3%;
+        left: 33.3%;
+        top: 33.3%;
     }
 }
-@media screen and (max-width: 800px) and (max-width: 1024px) {
-    #zoomImageBlock{
-
+@media screen and (min-width: 800px) and (max-width: 1024px) {
+    #alertDiv{
+        width: 80%;
+        left: 10%;
+        top: 33.3%;
+    }
+}
+@media screen and (min-width: 500px) and (max-width: 800px) {
+    #alertDiv{
+        width: 90%;
+        left: 5%;
+        top: 33.3%;
     }
 }
 @media screen and (max-width: 500px) {
-    #zoomImageBlock{
-
+    #alertDiv{
+        width: 100%;
+        left: 0;
+        top: 33.3%;
     }
     #brandLabel{
         font-size: 13px;
@@ -63,6 +76,25 @@ h2{
     text-align: right;
     float: right;
 }
+
+#alertDiv{
+    padding: 10px;
+    border: 1px solid black;
+    position: fixed;
+    background: #e4e4e4;
+    font-size: 20px;
+    text-align: center;
+}
+.alertButton{
+    display: inline;
+    width: 40%;
+    height: 30px;
+    margin-top: 10px;
+}
+#alertTrue{
+    margin-right: 5%;
+}
+
 
 
 
